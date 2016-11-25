@@ -208,11 +208,22 @@ public abstract class DriverBase extends JapexDriverBase
     @Override
     public void finish(TestCase testCase)
     {
+        //System.out.println("Constants.RUN_ITERATIONS_SUM"+testCase.getDoubleParam(Constants.RUN_ITERATIONS_SUM));
+        //System.out.println("Constants.ACTUAL_RUN_TIME"+testCase.getDoubleParam(Constants.ACTUAL_RUN_TIME));
+
+        double itersPerSec = 1000.0 * testCase.getDoubleParam(Constants.RUN_ITERATIONS_SUM) / testCase.getDoubleParam(Constants.ACTUAL_RUN_TIME);
+        double throughputGBps = itersPerSec * _uncompressed.length / (1024.0 * 1024.0 * 1024.0);
+        testCase.setDoubleParam("japex.resultValue", throughputGBps);
+        getTestSuite().setParam("japex.resultUnit", " speed in GB/s");
+    }
+   
+    public void finish1(TestCase testCase)
+    {
         // Set relative compressed size (in percents) as resultX
         double sizeRatio = calcSizeRatio();
         
         testCase.setDoubleParam("japex.resultValueX", 100.0 * sizeRatio);
-        getTestSuite().setParam("japex.resultUnitX", "Size%");
+        //getTestSuite().setParam("japex.resultUnitX", "MAD%");
 
         // And main result throughput, MB/s
         
@@ -230,12 +241,16 @@ public abstract class DriverBase extends JapexDriverBase
         } else {
             MAX = MAX_BOTH_THROUGHPUT;
         }
+/*
         if (throughputMBps > MAX) {
             throughputMBps = MAX;
         }
-        
+
+
+*/
+
         testCase.setDoubleParam("japex.resultValue", throughputMBps);
-        testCase.setParam("japex.resultUnit", "MB/s");
+        //getTestSuite().setParam("japex.resultUnit", "MB/s");
     }
 
     protected double calcSizeRatio() {

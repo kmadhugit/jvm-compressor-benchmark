@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Definition of all JVM compressor codecs
+
+     Trying to order from fastest to lowest, which also generally is from
+     least to most compressing codec
+  -->
+
+<driverGroup name="javaDrivers"
+  xmlns="http://www.sun.com/japex/testSuite"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+>
+
+  <driver name="LZ4 (P8 Optimized)" normal="false">
+        <description><div xmlns=""><p>LZ4 (P8 Optimized), block mode</p></div>
+        </description>
+        <param name="japex.classPath" value="build/classes"/>
+        <param name="japex.classPath" value="lib/lz4-p8-optimized/*.jar"/>
+        <param name="japex.driverClass" value="com.ning.jcbm.lz4.Lz4JNIDriver"/>
+  </driver>
+
+  <driver name="LZ4 (Default)" normal="false">
+        <description><div xmlns=""><p>LZ4 (Default)</p></div>
+        </description>
+        <param name="japex.classPath" value="build/classes"/>
+        <param name="japex.classPath" value="lib/lz4/*.jar"/>
+        <param name="japex.driverClass" value="com.ning.jcbm.lz4.Lz4JavaUnsafeDriver"/>
+  </driver>
+
+  <driver name="Snappy (P8 Optimized)" normal="false">
+        <description><div xmlns=""><p>Snappy (P8 Optimized)</p></div></description>
+        <param name="japex.classPath" value="build/classes"/>
+        <param name="japex.classPath" value="lib/snappy-p8-optimized/*.jar"/>
+        <param name="japex.driverClass" value="com.ning.jcbm.snappy.SnappyDriver" />
+        <param name="japex.singleClassLoader" value="true"/>
+  </driver>
+
+  <driver name="Snappy (Default)" normal="false">
+        <description><div xmlns=""><p>Snappy (Default)</p></div></description>
+        <param name="japex.classPath" value="build/classes"/>
+        <param name="japex.classPath" value="lib/snappy/*.jar"/>
+        <param name="japex.driverClass" value="com.ning.jcbm.snappy.SnappyDriver" />
+        <param name="japex.singleClassLoader" value="true"/>
+  </driver>
+
+
+<!--
+  <driver name="LZF-fast/stream">
+        <description><div xmlns=""><p>LZF, stream</p></div></description>
+        <param name="streaming" value="true" />
+        <param name="japex.classPath" value="build/classes"/>
+        <param name="japex.classPath" value="lib/lzf/*.jar"/>
+        <param name="japex.driverClass" value="com.ning.jcbm.lzf.LzfDriver" />
+  </driver>
+  <driver name="LZF-safe/stream">
+        <description><div xmlns=""><p>LZF-safe, stream</p></div></description>
+        <param name="streaming" value="true" />
+        <param name="japex.classPath" value="build/classes"/>
+        <param name="japex.classPath" value="lib/lzf/*.jar"/>
+        <param name="japex.driverClass" value="com.ning.jcbm.lzf.LzfSafeDriver" />
+  </driver>
+-->
+
+<!--
+  <driver name="LZF-Voldemort/block" normal="false">
+        <description><div xmlns=""><p>LZF/V, block</p></div></description>
+        <param name="japex.classPath" value="build/classes"/>
+        <param name="japex.classPath" value="lib/lzf/*.jar"/>
+        <param name="japex.driverClass" value="com.ning.jcbm.voldemort.VoldemortLZFDriver" />
+  </driver>
+-->
+
+</driverGroup>
